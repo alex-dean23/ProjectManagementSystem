@@ -70,11 +70,11 @@ public class Login {
 		frame.getContentPane().add(passwordField);
 		
 		JLabel lblNewLabel = new JLabel("USERNAME");
-		lblNewLabel.setBounds(312, 58, 63, 14);
+		lblNewLabel.setBounds(310, 58, 159, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("PASSWORD");
-		lblNewLabel_1.setBounds(310, 108, 65, 14);
+		lblNewLabel_1.setBounds(310, 108, 159, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("LOGIN");
