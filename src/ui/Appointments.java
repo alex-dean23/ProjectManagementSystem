@@ -87,12 +87,12 @@ public class Appointments {
 		
 		JLabel lblNewLabel = new JLabel("Project Name");
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(241, 50, 83, 14);
+		lblNewLabel.setBounds(241, 50, 187, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Project Description");
 		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setBounds(243, 112, 107, 14);
+		lblNewLabel_1.setBounds(243, 112, 187, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnNewButton_3 = new JButton("SAVE");
@@ -102,7 +102,7 @@ public class Appointments {
 		
 		JButton btnNewButton_4 = new JButton("X");
 		btnNewButton_4.setBackground(Color.RED);
-		btnNewButton_4.setBounds(391, 196, 39, 23);
+		btnNewButton_4.setBounds(380, 196, 50, 23);
 		frame.getContentPane().add(btnNewButton_4);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
