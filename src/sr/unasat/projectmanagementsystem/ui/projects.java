@@ -118,7 +118,7 @@ public class projects {
 		frame.getContentPane().add(frmtdtxtfldMmddyyyy);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(projects.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
+		lblNewLabel_2.setIcon(new ImageIcon(projects.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
 		lblNewLabel_2.setBounds(132, 0, 402, 361);
 		frame.getContentPane().add(lblNewLabel_2);
 		
