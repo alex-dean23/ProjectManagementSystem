@@ -2,7 +2,11 @@ package sr.unasat.projectmanagementsystem.db;
 
 import sr.unasat.projectmanagementsystem.models.Appointment;
 import sr.unasat.projectmanagementsystem.models.Project;
+import sr.unasat.projectmanagementsystem.models.User;
+import sr.unasat.projectmanagementsystem.ui.Dashboard;
+import sr.unasat.projectmanagementsystem.ui.Login;
 
+import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
@@ -18,25 +22,27 @@ public class DBConn {
         private final String USER = "root";
         private final String PWD = "biga3000";
 
+
+
         public DBConn(Project project) {
 
             try {
                 //Get connection to database
                 Class.forName("com.mysql.jdbc.Driver");
-                myConn = DriverManager.getConnection(
-                        String.format("jdbc:mysql://%s/%s", URL, DATABASE), USER, PWD);
+                Connection myConn = DriverManager.getConnection(
+                         String.format("jdbc:mysql://%s/%s", URL, DATABASE), USER, PWD);
                 //Create Statement
                 Statement myStmt = myConn.createStatement();
 
                 //Execute query
                 ResultSet myRs = myStmt.executeQuery("Select * from notepad_user ");
                 System.out.println("Connection Successful");
-
             } catch (SQLException | ClassNotFoundException e) {
                 System.out.println("Connection Failed");
                 e.printStackTrace();
             }
         }
+
             public void insertIntoProjects(Project project){
                 String sql = "INSERT INTO projects (Proj_name, Proj_description, End_date, User_id, Cat_id) VALUES (?, ?, ?, ?, ?)";
 
@@ -184,6 +190,10 @@ public class DBConn {
             e.printStackTrace();
         }
         return appointments;
+    }
+
+    public void logiinUser(){
+
     }
 
     private static String getClassName(Class c) {

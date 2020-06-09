@@ -89,4 +89,11 @@ public class Dashboard {
 	public void setVisible(boolean b) {
 	}
 
+	public void setVisible() {
+		this.setVisible();
+	}
+
+	public void setTitle(String welcome) {
+		this.setTitle("Welcome");
+	}
 }
