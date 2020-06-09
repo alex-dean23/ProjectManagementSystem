@@ -1,16 +1,15 @@
-package sr.unasat.projectmanagementsystem.ui;
+package ui;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 
 public class Login {
@@ -59,7 +58,7 @@ public class Login {
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		panel.add(lblNewLabel_2);
-		lblNewLabel_2.setIcon(new ImageIcon(Login.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/PMS loginPage(271,361).png")));
+		lblNewLabel_2.setIcon(new ImageIcon(Login.class.getResource("/ui/images/PMS loginPage(271,361).png")));
 		
 		textField = new JTextField();
 		textField.setBounds(310, 77, 161, 20);
@@ -81,16 +80,5 @@ public class Login {
 		JButton btnNewButton = new JButton("LOGIN");
 		btnNewButton.setBounds(310, 182, 161, 23);
 		frame.getContentPane().add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-	}
-
-	private static void setVisisble(boolean b) {
-
 	}
 }

@@ -1,13 +1,11 @@
-package sr.unasat.projectmanagementsystem.ui;
-
-import sr.unasat.projectmanagementsystem.db.DBConn;
-import sr.unasat.projectmanagementsystem.models.Project;
+package ui;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -16,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 
-public class projects extends JFrame{
+public class projects {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -49,7 +47,6 @@ public class projects extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
 		frame = new JFrame();
 		frame.setBounds(100, 100, 550, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +61,6 @@ public class projects extends JFrame{
 		JButton btnNewButton = new JButton("Dashboard");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 			}
 		});
 		btnNewButton.setBounds(10, 73, 113, 23);
@@ -112,19 +108,18 @@ public class projects extends JFrame{
 		btnNewButton_3.setBackground(Color.GREEN);
 		btnNewButton_3.setBounds(241, 253, 83, 23);
 		frame.getContentPane().add(btnNewButton_3);
-
+		
 		JButton btnNewButton_4 = new JButton("X");
 		btnNewButton_4.setBackground(Color.RED);
 		btnNewButton_4.setBounds(391, 253, 39, 23);
 		frame.getContentPane().add(btnNewButton_4);
-
 		
 		JFormattedTextField frmtdtxtfldMmddyyyy = new JFormattedTextField();
 		frmtdtxtfldMmddyyyy.setBounds(241, 210, 189, 20);
 		frame.getContentPane().add(frmtdtxtfldMmddyyyy);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(projects.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
+		lblNewLabel_2.setIcon(new ImageIcon(projects.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
 		lblNewLabel_2.setBounds(132, 0, 402, 361);
 		frame.getContentPane().add(lblNewLabel_2);
 		

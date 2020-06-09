@@ -1,4 +1,4 @@
-package sr.unasat.projectmanagementsystem.ui;
+package ui;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
@@ -105,7 +106,7 @@ public class Appointments {
 		frame.getContentPane().add(btnNewButton_4);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(Appointments.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
+		lblNewLabel_2.setIcon(new ImageIcon(Appointments.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
 		lblNewLabel_2.setBounds(132, 0, 402, 361);
 		frame.getContentPane().add(lblNewLabel_2);
 	}
