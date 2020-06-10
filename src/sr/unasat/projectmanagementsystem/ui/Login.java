@@ -1,5 +1,7 @@
 package sr.unasat.projectmanagementsystem.ui;
 
+import sr.unasat.projectmanagementsystem.db.DBConn;
+
 import java.awt.EventQueue;
 
 import javax.swing.*;
@@ -9,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class Login extends JFrame{
+	private DBConn dbConn;
 
 	private JFrame frame;
 	private JTextField textField;
@@ -35,12 +38,14 @@ public class Login extends JFrame{
 	 */
 	public Login() throws Exception {
 		initialize();
+
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() throws Exception{
+
 		frame = new JFrame();
 		frame.getContentPane().setForeground(Color.DARK_GRAY);
 		frame.setBounds(100, 100, 550, 400);

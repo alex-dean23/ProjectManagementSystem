@@ -11,8 +11,7 @@ public class Project {
     private int userId;
     private int categoryId;
 
-    public Project(int id, String name, String description, String date, int userId, int categoryId) {
-        this.id = id;
+    public Project(String name, String description, String date, int userId, int categoryId) {
         this.name = name;
         this.description = description;
         this.date = date;
@@ -36,6 +35,7 @@ public class Project {
             e.printStackTrace();
         }
     }
+
 
     public int getId() {
         return id;

@@ -24,7 +24,7 @@ public class DBConn {
 
 
 
-        public DBConn(Project project) {
+        public DBConn (){
 
             try {
                 //Get connection to database

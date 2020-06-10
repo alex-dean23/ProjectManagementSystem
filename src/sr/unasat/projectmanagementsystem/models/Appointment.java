@@ -9,8 +9,7 @@ public class Appointment {
     private String description;
     private int projectId;
 
-    public Appointment(int id, String name, String description, int projectId) {
-        this.id = id;
+    public Appointment(String name, String description, int projectId) {
         this.name = name;
         this.description = description;
         this.projectId = projectId;

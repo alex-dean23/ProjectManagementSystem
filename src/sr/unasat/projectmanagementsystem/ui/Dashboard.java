@@ -1,5 +1,9 @@
 package sr.unasat.projectmanagementsystem.ui;
 
+import sr.unasat.projectmanagementsystem.db.DBConn;
+import sr.unasat.projectmanagementsystem.models.Appointment;
+import sr.unasat.projectmanagementsystem.models.Project;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,17 +22,23 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.CardLayout;
+import java.time.Period;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 
 public class Dashboard {
 
+	private DBConn dbConn;
 	private JFrame frame;
 	private JLayeredPane layeredPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField appointmentName;
+	private JTextField appointmentDescription;
+	private JTextField projectId;
+	private JTextField projectName;
+	private JTextField projectDescription;
+	private JTextField projectEndDate;
+	private JTextField userId;
+	private JTextField categoryId;
 	private JPanel projectPanel;
 	private JPanel appointmentPanel;
 	private JPanel dashboardPanel;
@@ -103,16 +113,19 @@ public class Dashboard {
 		appointmentPanel.setLayout(null);
 		layeredPane.add(appointmentPanel, "name_16632775647900");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(88, 90, 189, 20);
-		appointmentPanel.add(textField);
+		appointmentName = new JTextField();
+		appointmentName.setColumns(10);
+		appointmentName.setBounds(88, 90, 189, 20);
+		appointmentPanel.add(appointmentName);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(88, 154, 189, 42);
-		appointmentPanel.add(textField_1);
-		
+		appointmentDescription = new JTextField();
+		appointmentDescription.setColumns(10);
+		appointmentDescription.setBounds(88, 154, 189, 42);
+		appointmentPanel.add(appointmentDescription);
+
+		projectId = new JTextField();
+		//Frame info
+
 		JLabel label = new JLabel("Project Name");
 		label.setForeground(Color.WHITE);
 		label.setBounds(88, 73, 189, 14);
@@ -124,7 +137,20 @@ public class Dashboard {
 		appointmentPanel.add(label_1);
 		
 		JButton button = new JButton("SAVE");
+		String columnsAppointments[] ={"Appointment Name", "Appointment Description", "Project Id"};
+		Object []rowAppointment = new Object[3];
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rowAppointment[0] = appointmentName.getText();
+				rowAppointment[1] = appointmentDescription.getText();
+				rowAppointment[2] = projectId.getText();
+				Appointment appointment = new Appointment(appointmentName.getText(), appointmentDescription.getText(),Integer.parseInt(projectId.getText()));
+				dbConn.insertIntoAppointments(appointment);
+			}
+		});
 		button.setBackground(Color.GREEN);
+
 		button.setBounds(88, 216, 83, 23);
 		appointmentPanel.add(button);
 		
@@ -143,15 +169,24 @@ public class Dashboard {
 		projectPanel.setLayout(null);
 		layeredPane.add(projectPanel, "name_16632791671800");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(88, 101, 189, 20);
-		projectPanel.add(textField_2);
+		projectName = new JTextField();
+		projectName.setColumns(10);
+		projectName.setBounds(88, 101, 189, 20);
+		projectPanel.add(projectName);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(88, 159, 189, 42);
-		projectPanel.add(textField_3);
+		projectDescription = new JTextField();
+		projectDescription.setColumns(10);
+		projectDescription.setBounds(88, 159, 189, 42);
+		projectPanel.add(projectDescription);
+
+		projectEndDate = new JTextField();
+		//Frame info
+
+		userId = new JTextField();
+		//Frame info
+
+		categoryId = new JTextField();
+		//Frame info
 		
 		JLabel label_3 = new JLabel("Project Name");
 		label_3.setForeground(Color.WHITE);
@@ -168,8 +203,23 @@ public class Dashboard {
 		label_5.setBackground(Color.WHITE);
 		label_5.setBounds(88, 228, 190, 14);
 		projectPanel.add(label_5);
-		
+
+		//Button for project
 		JButton button_2 = new JButton("SAVE");
+		String columnsProject[] ={"Project Name", "Project Description", "End Date", "User", "Category"};
+		Object []rowProject = new Object[5];
+		button_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rowProject[0] = projectName.getText();
+				rowProject[1] = projectDescription.getText();
+				rowProject[2] = projectEndDate.getText();
+				rowProject[3] = userId.getText();
+				rowProject[4] = categoryId.getText();
+				Project project = new Project(projectName.getText(), projectDescription.getText(),projectEndDate.getText(), Integer.parseInt(userId.getText()), Integer.parseInt(categoryId.getText()));
+				dbConn.insertIntoProjects(project);
+			}
+		});
 		button_2.setBackground(Color.GREEN);
 		button_2.setBounds(88, 281, 83, 23);
 		projectPanel.add(button_2);
