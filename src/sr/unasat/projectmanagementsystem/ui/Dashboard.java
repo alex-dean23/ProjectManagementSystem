@@ -93,7 +93,5 @@ public class Dashboard {
 		this.setVisible();
 	}
 
-	public void setTitle(String welcome) {
-		this.setTitle("Welcome");
-	}
+
 }

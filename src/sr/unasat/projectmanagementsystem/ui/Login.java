@@ -37,10 +37,6 @@ public class Login {
 		initialize();
 	}
 
-	public static void dispose() {
-		dispose();
-	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -86,7 +82,7 @@ public class Login {
 				String userName = textField.getText();
 				String password = passwordField.getText();
 				try {
-					Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db",
+					Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
 							"root", "biga3000");
 
 					PreparedStatement st = (PreparedStatement) connection
@@ -96,10 +92,9 @@ public class Login {
 					st.setString(2, password);
 					ResultSet rs = st.executeQuery();
 					if (rs.next()) {
-						dispose();
 						Dashboard ah = new Dashboard();
-						ah.setTitle("Welcome");
 						ah.setVisible(true);
+						frame.setVisible(false);
 						JOptionPane.showMessageDialog(btnNewButton, "You have successfully logged in");
 					} else {
 						JOptionPane.showMessageDialog(btnNewButton, "Wrong Username & Password");
