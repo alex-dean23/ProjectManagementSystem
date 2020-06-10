@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 
 public class Dashboard {
 
-	private DBConn dbConn;
+	/*private DBConn dbConn;
 	private JFrame frame;
 	private JLayeredPane layeredPane;
 	private JTextField appointmentName;
@@ -43,7 +43,23 @@ public class Dashboard {
 	private JPanel appointmentPanel;
 	private JPanel dashboardPanel;
 	private boolean visible;
+	*/
+	private JFrame frame;
+	private JLayeredPane layeredPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JPanel projectPanel;
+	private JPanel appointmentPanel;
+	private JPanel dashboardPanel;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -85,7 +101,7 @@ public class Dashboard {
 		frame.setBounds(100, 100, 550, 400);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		
 		
 		//Panel
 		JPanel cardPanel = new JPanel();
@@ -99,6 +115,7 @@ public class Dashboard {
 		cardPanel.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
+		//dash
 		dashboardPanel = new JPanel();
 		dashboardPanel.setLayout(null);
 		layeredPane.add(dashboardPanel, "name_16632743230200");
@@ -113,50 +130,45 @@ public class Dashboard {
 		appointmentPanel.setLayout(null);
 		layeredPane.add(appointmentPanel, "name_16632775647900");
 		
-		appointmentName = new JTextField();
-		appointmentName.setColumns(10);
-		appointmentName.setBounds(88, 90, 189, 20);
-		appointmentPanel.add(appointmentName);
+		textField_4 = new JTextField();
+		textField_4.setBounds(88, 110, 189, 20);
+		appointmentPanel.add(textField_4);
+		textField_4.setColumns(10);
 		
-		appointmentDescription = new JTextField();
-		appointmentDescription.setColumns(10);
-		appointmentDescription.setBounds(88, 154, 189, 42);
-		appointmentPanel.add(appointmentDescription);
-
-		projectId = new JTextField();
-		//Frame info
-
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(88, 161, 189, 20);
+		appointmentPanel.add(textField);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(88, 212, 189, 42);
+		appointmentPanel.add(textField_1);
+		
+		JLabel lblNewLabel = new JLabel("Project ID");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setBackground(Color.WHITE);
+		lblNewLabel.setBounds(88, 91, 189, 14);
+		appointmentPanel.add(lblNewLabel);
+		
 		JLabel label = new JLabel("Project Name");
 		label.setForeground(Color.WHITE);
-		label.setBounds(88, 73, 189, 14);
+		label.setBounds(88, 141, 189, 14);
 		appointmentPanel.add(label);
 		
 		JLabel label_1 = new JLabel("Project Description");
 		label_1.setForeground(Color.WHITE);
-		label_1.setBounds(88, 135, 188, 14);
+		label_1.setBounds(89, 192, 188, 14);
 		appointmentPanel.add(label_1);
 		
 		JButton button = new JButton("SAVE");
-		String columnsAppointments[] ={"Appointment Name", "Appointment Description", "Project Id"};
-		Object []rowAppointment = new Object[3];
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				rowAppointment[0] = appointmentName.getText();
-				rowAppointment[1] = appointmentDescription.getText();
-				rowAppointment[2] = projectId.getText();
-				Appointment appointment = new Appointment(appointmentName.getText(), appointmentDescription.getText(),Integer.parseInt(projectId.getText()));
-				dbConn.insertIntoAppointments(appointment);
-			}
-		});
 		button.setBackground(Color.GREEN);
-
-		button.setBounds(88, 216, 83, 23);
+		button.setBounds(88, 271, 83, 23);
 		appointmentPanel.add(button);
 		
 		JButton button_1 = new JButton("X");
 		button_1.setBackground(Color.RED);
-		button_1.setBounds(224, 216, 50, 23);
+		button_1.setBounds(227, 271, 50, 23);
 		appointmentPanel.add(button_1);
 		
 		JLabel label_2 = new JLabel("New label");
@@ -164,74 +176,75 @@ public class Dashboard {
 		label_2.setBounds(0, 0, 402, 361);
 		appointmentPanel.add(label_2);
 		
+				
 		//projp
+		
+		
 		projectPanel = new JPanel();
 		projectPanel.setLayout(null);
 		layeredPane.add(projectPanel, "name_16632791671800");
 		
-		projectName = new JTextField();
-		projectName.setColumns(10);
-		projectName.setBounds(88, 101, 189, 20);
-		projectPanel.add(projectName);
+		JLabel lblNewLabel_1 = new JLabel("Category ID");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setBounds(88, 99, 186, 14);
+		projectPanel.add(lblNewLabel_1);
 		
-		projectDescription = new JTextField();
-		projectDescription.setColumns(10);
-		projectDescription.setBounds(88, 159, 189, 42);
-		projectPanel.add(projectDescription);
-
-		projectEndDate = new JTextField();
-		//Frame info
-
-		userId = new JTextField();
-		//Frame info
-
-		categoryId = new JTextField();
-		//Frame info
+		textField_8 = new JTextField();
+		textField_8.setBounds(88, 68, 186, 20);
+		projectPanel.add(textField_8);
+		textField_8.setColumns(10);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(88, 117, 186, 20);
+		projectPanel.add(textField_6);
+		textField_6.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(88, 167, 189, 20);
+		projectPanel.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(88, 216, 189, 35);
+		projectPanel.add(textField_3);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(88, 275, 186, 20);
+		projectPanel.add(formattedTextField);
+		
+		JLabel lblNewLabel_2 = new JLabel("User ID");
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setBounds(88, 49, 186, 14);
+		projectPanel.add(lblNewLabel_2);
 		
 		JLabel label_3 = new JLabel("Project Name");
 		label_3.setForeground(Color.WHITE);
-		label_3.setBounds(88, 79, 189, 14);
+		label_3.setBounds(88, 148, 189, 14);
 		projectPanel.add(label_3);
 		
 		JLabel label_4 = new JLabel("Project Description");
 		label_4.setForeground(Color.WHITE);
-		label_4.setBounds(88, 142, 186, 14);
+		label_4.setBounds(88, 198, 186, 14);
 		projectPanel.add(label_4);
 		
 		JLabel label_5 = new JLabel("End Date");
 		label_5.setForeground(Color.WHITE);
 		label_5.setBackground(Color.WHITE);
-		label_5.setBounds(88, 228, 190, 14);
+		label_5.setBounds(88, 257, 190, 14);
 		projectPanel.add(label_5);
-
-		//Button for project
+		
 		JButton button_2 = new JButton("SAVE");
-		String columnsProject[] ={"Project Name", "Project Description", "End Date", "User", "Category"};
-		Object []rowProject = new Object[5];
-		button_2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				rowProject[0] = projectName.getText();
-				rowProject[1] = projectDescription.getText();
-				rowProject[2] = projectEndDate.getText();
-				rowProject[3] = userId.getText();
-				rowProject[4] = categoryId.getText();
-				Project project = new Project(projectName.getText(), projectDescription.getText(),projectEndDate.getText(), Integer.parseInt(userId.getText()), Integer.parseInt(categoryId.getText()));
-				dbConn.insertIntoProjects(project);
-			}
-		});
 		button_2.setBackground(Color.GREEN);
-		button_2.setBounds(88, 281, 83, 23);
+		button_2.setBounds(88, 306, 83, 23);
 		projectPanel.add(button_2);
 		
 		JButton button_3 = new JButton("X");
 		button_3.setBackground(Color.RED);
-		button_3.setBounds(230, 281, 47, 23);
+		button_3.setBounds(227, 306, 50, 23);
 		projectPanel.add(button_3);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(88, 247, 189, 20);
-		projectPanel.add(formattedTextField);
+	
 		
 		JLabel label_6 = new JLabel("New label");
 		label_6.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
@@ -296,11 +309,5 @@ public class Dashboard {
 	protected void close() {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-	public void setVisible(boolean b) {
-		frame.setVisible(b);
-
 	}
 }
