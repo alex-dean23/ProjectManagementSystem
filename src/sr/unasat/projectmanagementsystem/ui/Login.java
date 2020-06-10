@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class Login {
+public class Login extends JFrame{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -72,7 +72,8 @@ public class Login {
 		JLabel lblNewLabel_1 = new JLabel("PASSWORD");
 		lblNewLabel_1.setBounds(310, 108, 65, 14);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+
+
 		JButton btnNewButton = new JButton("LOGIN");
 		btnNewButton.setBounds(310, 182, 161, 23);
 		frame.getContentPane().add(btnNewButton);
@@ -92,10 +93,11 @@ public class Login {
 					st.setString(2, password);
 					ResultSet rs = st.executeQuery();
 					if (rs.next()) {
-						Dashboard ah = new Dashboard();
-						ah.setVisible(true);
 						frame.setVisible(false);
 						JOptionPane.showMessageDialog(btnNewButton, "You have successfully logged in");
+						Dashboard dashboard = new Dashboard();
+						dashboard.setVisible(true);
+
 					} else {
 						JOptionPane.showMessageDialog(btnNewButton, "Wrong Username & Password");
 					}

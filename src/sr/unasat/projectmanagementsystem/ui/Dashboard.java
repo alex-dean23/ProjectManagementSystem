@@ -32,6 +32,7 @@ public class Dashboard {
 	private JPanel projectPanel;
 	private JPanel appointmentPanel;
 	private JPanel dashboardPanel;
+	private boolean visible;
 
 	/**
 	 * Launch the application.
@@ -74,7 +75,7 @@ public class Dashboard {
 		frame.setBounds(100, 100, 550, 400);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		
 		//Panel
 		JPanel cardPanel = new JPanel();
@@ -93,7 +94,7 @@ public class Dashboard {
 		layeredPane.add(dashboardPanel, "name_16632743230200");
 		
 		JLabel label_7 = new JLabel("New label");
-		label_7.setIcon(new ImageIcon(Dashboard.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
+		label_7.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
 		label_7.setBounds(0, 0, 402, 361);
 		dashboardPanel.add(label_7);
 		
@@ -133,7 +134,7 @@ public class Dashboard {
 		appointmentPanel.add(button_1);
 		
 		JLabel label_2 = new JLabel("New label");
-		label_2.setIcon(new ImageIcon(Dashboard.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
+		label_2.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
 		label_2.setBounds(0, 0, 402, 361);
 		appointmentPanel.add(label_2);
 		
@@ -183,7 +184,7 @@ public class Dashboard {
 		projectPanel.add(formattedTextField);
 		
 		JLabel label_6 = new JLabel("New label");
-		label_6.setIcon(new ImageIcon(Dashboard.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
+		label_6.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
 		label_6.setBounds(0, 0, 402, 361);
 		projectPanel.add(label_6);
 		
@@ -245,5 +246,11 @@ public class Dashboard {
 	protected void close() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public void setVisible(boolean b) {
+		frame.setVisible(b);
+
 	}
 }
