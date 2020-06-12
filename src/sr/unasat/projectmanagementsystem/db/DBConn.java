@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DBConn {
 
-    private Connection myConn;
+     Connection myConn;
         private final String DRIVER = "com.mysql.jdbc.Driver";
         private final String URL = "localhost:3306";
         private final String DATABASE = "pm_system_db";
@@ -24,13 +24,13 @@ public class DBConn {
 
 
 
-        public DBConn (){
+    public DBConn (){
 
             try {
                 //Get connection to database
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection myConn = DriverManager.getConnection(
-                         String.format("jdbc:mysql://%s/%s", URL, DATABASE), USER, PWD);
+                Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                "root", "biga3000");
                 //Create Statement
                 Statement myStmt = myConn.createStatement();
 
@@ -43,23 +43,22 @@ public class DBConn {
             }
         }
 
-            public void insertIntoProjects(Project project){
-                String sql = "INSERT INTO projects (Proj_name, Proj_description, End_date, User_id, Cat_id) VALUES (?, ?, ?, ?, ?)";
+            public void insertIntoProjects(String Name, String Description, String Date){
+                String sql = "INSERT INTO projects (Proj_name, Proj_description, End_date) VALUES ('"+Name+"','"+Description+"', '"+Date+"')";
 
                 try {
+                    Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                            "root", "biga3000");
                     PreparedStatement statement = myConn.prepareStatement(sql);
-                    statement.setString(1, project.getName());
-                    statement.setString(2, project.getDescription());
-                    statement.setString(3, project.getDate());
-                    statement.setInt(4, project.getUserId());
-                    statement.setInt(5, project.getCategoryId());
-
                     int rowsInserted = statement.executeUpdate();
                     if (rowsInserted > 0) {
-                        System.out.println("A new product was inserted successfully!");
+                        System.out.println("A new project was inserted successfully!");
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
+                }
+                catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
                 }
             }
 
@@ -69,6 +68,7 @@ public class DBConn {
                 "WHERE Id = ?";
 
         try {
+
             PreparedStatement statement = myConn.prepareStatement(sql);
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
@@ -85,38 +85,32 @@ public class DBConn {
         }
     }
 
-    public void insertIntoAppointments(Appointment appointment){
-        String sql = "INSERT INTO appointments (App_name, App_description, Proj_id) VALUES (?, ?, ?)";
+    public void insertIntoAppointments( String Name, String Description ) {
+        String sql = "INSERT INTO appointments (App_name, App_description) VALUES ( '"+Name+"', '"+Description+"')";
 
         try {
-            PreparedStatement statement = myConn.prepareStatement(sql);
-            statement.setString(1, appointment.getName());
-            statement.setString(2, appointment.getDescription());
-            statement.setInt(3, appointment.getProjectId());
 
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A new product was inserted successfully!");
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                    "root", "biga3000");
+            PreparedStatement statement =  myConn.prepareStatement(sql);
+            int rs = statement.executeUpdate(sql);
+            if (rs>0) {
+                System.out.println("An Appointment was added successfully!");
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
         }
     }
 
-    public void updateAppointment(Project project){
+    public void updateAppointment(String Name, String Description){
         String sql = "UPDATE appointments SET App_name = ?, App_description = ?, Proj_id = ? WHERE Id = ?";
 
         try {
             PreparedStatement statement = myConn.prepareStatement(sql);
-            statement.setString(1, project.getName());
-            statement.setString(2, project.getDescription());
-            statement.setString(3, project.getDate());
-            statement.setInt(4, project.getUserId());
-            statement.setInt(5, project.getCategoryId());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("A project was updated successfully!");
+                System.out.println("A Appointment was updated successfully!");
             }
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -127,8 +121,7 @@ public class DBConn {
 
         try {
             if(myConn.isClosed())
-                myConn = DriverManager.getConnection(
-                        String.format("jdbc:mysql://%s/%s", URL, DATABASE), USER, PWD);
+                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?autoReconnect=true&useSSL=false");
             PreparedStatement statement = myConn.prepareStatement(sql);
             Method m = obj.getClass().getMethod("getId");
             Integer id = (Integer) m.invoke(obj);
@@ -192,9 +185,6 @@ public class DBConn {
         return appointments;
     }
 
-    public void logiinUser(){
-
-    }
 
     private static String getClassName(Class c) {
         String FQClassName = c.getName();
