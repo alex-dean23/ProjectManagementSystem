@@ -9,7 +9,7 @@ public class Appointment {
     private String description;
     private int projectId;
 
-    public Appointment(String name, String description) {
+    public Appointment(String name, String description, int projectId) {
         this.name = name;
         this.description = description;
         this.projectId = projectId;
@@ -28,6 +28,10 @@ public class Appointment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Appointment() {
+
     }
 
     public int getId() {

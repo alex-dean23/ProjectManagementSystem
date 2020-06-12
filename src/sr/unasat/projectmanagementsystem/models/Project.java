@@ -11,7 +11,8 @@ public class Project {
     private int userId;
     private int categoryId;
 
-    public Project(String name, String description, String date) {
+    public Project( String name, String description, String date, int userId, int categoryId) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.date = date;
@@ -34,6 +35,10 @@ public class Project {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Project() {
+
     }
 
 

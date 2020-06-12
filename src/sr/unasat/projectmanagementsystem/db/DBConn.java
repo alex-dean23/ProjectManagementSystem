@@ -43,13 +43,18 @@ public class DBConn {
             }
         }
 
-            public void insertIntoProjects(String Name, String Description, String Date){
-                String sql = "INSERT INTO projects (Proj_name, Proj_description, End_date) VALUES ('"+Name+"','"+Description+"', '"+Date+"')";
+            public void insertIntoProjects(String Name, String Description, String Date, int UserId, int CategoryId){
+                String sql = "INSERT INTO projects (Proj_name, Proj_description, End_date, User_id, Cat_id) VALUES (?, ?, ?, ?, ?)";
 
                 try {
                     Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
                             "root", "biga3000");
                     PreparedStatement statement = myConn.prepareStatement(sql);
+                    statement.setString(1,Name);
+                    statement.setString(2,Description);
+                    statement.setString(3,Date);
+                    statement.setInt(4,UserId);
+                    statement.setInt(5,CategoryId);
                     int rowsInserted = statement.executeUpdate();
                     if (rowsInserted > 0) {
                         System.out.println("A new project was inserted successfully!");
@@ -64,7 +69,7 @@ public class DBConn {
 
     public void updateProject(Project project){
         String sql = "UPDATE projects SET Proj_name = ?, Proj_description = ?, End_date = ?," +
-                "User_id = ? " + "Cat_id"+
+                "User_id = ? " + "Cat_id = ?"+
                 "WHERE Id = ?";
 
         try {
@@ -75,6 +80,7 @@ public class DBConn {
             statement.setString(3, project.getDate());
             statement.setInt(4, project.getUserId());
             statement.setInt(5, project.getCategoryId());
+            statement.setInt(5, project.getId());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -85,15 +91,18 @@ public class DBConn {
         }
     }
 
-    public void insertIntoAppointments( String Name, String Description ) {
-        String sql = "INSERT INTO appointments (App_name, App_description) VALUES ( '"+Name+"', '"+Description+"')";
+    public void insertIntoAppointments( String Name, String Description, int ProjectId ) {
+        String sql = "INSERT INTO appointments (App_name, App_description, Proj_id) VALUES ( ?, ?, ?)";
 
         try {
 
             Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
                     "root", "biga3000");
             PreparedStatement statement =  myConn.prepareStatement(sql);
-            int rs = statement.executeUpdate(sql);
+            statement.setString(1,Name);
+            statement.setString(2,Description);
+            statement.setInt(3,ProjectId);
+            int rs = statement.executeUpdate();
             if (rs>0) {
                 System.out.println("An Appointment was added successfully!");
             }
@@ -102,26 +111,32 @@ public class DBConn {
         }
     }
 
-    public void updateAppointment(String Name, String Description){
+    public void updateAppointment(Appointment appointment){
         String sql = "UPDATE appointments SET App_name = ?, App_description = ?, Proj_id = ? WHERE Id = ?";
 
         try {
             PreparedStatement statement = myConn.prepareStatement(sql);
-
+            statement.setString(1, appointment.getName());
+            statement.setString(2, appointment.getDescription());
+            statement.setInt(3, appointment.getProjectId());
+            statement.setInt(4, appointment.getId());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("A Appointment was updated successfully!");
+                System.out.println("An Appointment was updated successfully!");
             }
         }catch (SQLException ex){
             ex.printStackTrace();
         }
     }
+
+
     public void deleteEntity(Object obj){
         String sql = String.format("DELETE FROM %s WHERE Id = ?", getClassName(obj.getClass()));
 
         try {
             if(myConn.isClosed())
-                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?autoReconnect=true&useSSL=false");
+                 myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                        "root", "biga3000");
             PreparedStatement statement = myConn.prepareStatement(sql);
             Method m = obj.getClass().getMethod("getId");
             Integer id = (Integer) m.invoke(obj);
@@ -142,10 +157,47 @@ public class DBConn {
         }
     }
 
+
+    public void deleteAppointment(Appointment appointment){
+        String sql = "DELETE FROM appointments WHERE Id = ?";
+
+        try {
+            if(myConn.isClosed())
+                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?autoReconnect=true&useSSL=false");
+            PreparedStatement statement = myConn.prepareStatement(sql);
+            statement.setInt(1, appointment.getId());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A appointment was deleted successfully!");
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void deleteProject(Project project){
+        String sql = "DELETE FROM projects WHERE Id = ?";
+
+        try {
+            if(myConn.isClosed())
+                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?autoReconnect=true&useSSL=false");
+            PreparedStatement statement = myConn.prepareStatement(sql);
+            statement.setInt(1, project.getId());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A project was deleted successfully!");
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
     public List<Project> getListingForProject(){
         String  query = "SELECT * FROM projects";
         ArrayList<Project> projects = new ArrayList<Project>();
         try {
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                    "root", "biga3000");
             Statement st = myConn.createStatement();
 
             ResultSet rs = null;
@@ -168,6 +220,8 @@ public class DBConn {
         String query = "SELECT * FROM appointments";
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
         try {
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                    "root", "biga3000");
             Statement st = myConn.createStatement();
 
             ResultSet rs = null;

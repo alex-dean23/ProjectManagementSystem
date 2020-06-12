@@ -3,28 +3,19 @@ package sr.unasat.projectmanagementsystem.ui;
 import sr.unasat.projectmanagementsystem.db.DBConn;
 import sr.unasat.projectmanagementsystem.models.Appointment;
 import sr.unasat.projectmanagementsystem.models.Project;
+import sr.unasat.projectmanagementsystem.models.table.ProjectTableModel;
 
-import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JDesktopPane;
-import javax.swing.JFormattedTextField;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JList;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.awt.CardLayout;
 import java.time.Period;
-import javax.swing.JLayeredPane;
-import javax.swing.JTextField;
 
 public class Dashboard {
 
@@ -104,7 +95,8 @@ public class Dashboard {
 		 final String USER = "root";
 		 final String PWD = "biga3000";
 
-
+		// create an array of objects to set the row data
+		Object []row = new Object[5];
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 550, 400);
@@ -129,23 +121,25 @@ public class Dashboard {
 		dashboardPanel.setLayout(null);
 		layeredPane.add(dashboardPanel, "name_16632743230200");
 		
-		JLabel lblNewLabel_3 = new JLabel("Appointments Tablel");
+		JLabel lblNewLabel_3 = new JLabel("Appointments Table");
 		lblNewLabel_3.setForeground(Color.WHITE);
 		lblNewLabel_3.setBounds(44, 28, 316, 14);
 		dashboardPanel.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("Project Tabel");
+		JLabel lblNewLabel_4 = new JLabel("Projects Table");
 		lblNewLabel_4.setForeground(Color.WHITE);
 		lblNewLabel_4.setBounds(44, 201, 316, 14);
 		dashboardPanel.add(lblNewLabel_4);
 		
 		JButton btnNewButton_3 = new JButton("UPDATE");
+
 		btnNewButton_3.setBackground(Color.BLUE);
 		btnNewButton_3.setForeground(Color.BLACK);
 		btnNewButton_3.setBounds(44, 143, 110, 23);
 		dashboardPanel.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("DELETE");
+
 		btnNewButton_4.setBackground(Color.RED);
 		btnNewButton_4.setBounds(250, 143, 110, 23);
 		dashboardPanel.add(btnNewButton_4);
@@ -155,26 +149,167 @@ public class Dashboard {
 		scrollPane.setBounds(43, 45, 318, 87);
 		dashboardPanel.add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		JTable Appointments_table = new JTable();
+		String columnsAppointment [] ={"App Id","App Name","App Description","Proj Id"};
+
+		DefaultTableModel appointmentModel = new DefaultTableModel(new Object[][]{}, columnsAppointment);
+		appointmentModel.setColumnIdentifiers(columnsAppointment);
+		ProjectpopulateTable(appointmentModel);
+		Appointments_table.setModel(appointmentModel);
+
+		Appointments_table.setBackground(Color.LIGHT_GRAY);
+		Appointments_table.setForeground(Color.black);
+		Font font = new Font("",1,22);
+		Appointments_table.setFont(font);
+		Appointments_table.setRowHeight(30);
+
+		this.add(Appointments_table);
+		scrollPane.setViewportView(Appointments_table);
+
+		// create JTextFields
+
+		JLabel AId = new JLabel("App Id");
+		JLabel AN = new JLabel("App Name");
+		JLabel AD = new JLabel("App Description");
+		JLabel PId1 = new JLabel("Proj Id");
+
+
+		AId.setBounds(20, 220, 100, 25);
+		AN.setBounds(20, 250, 100, 25);
+		AD.setBounds(20, 280, 100, 25);
+		PId1.setBounds(20, 310, 100, 25);
+
+		scrollPane.setViewportView(Appointments_table);
+
+		// get selected row data From table to textfields
+		Appointments_table.addMouseListener(new MouseAdapter(){
+
+			@Override
+			public void mouseClicked(MouseEvent e){
+
+				// i = the index of the selected row
+				int i = Appointments_table.getSelectedRow();
+
+				appointmentName.setText(appointmentModel.getValueAt(i, 0).toString());
+				appointmentDescription.setText(appointmentModel.getValueAt(i, 1).toString());
+
+			}
+		});
+
+
+
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int row = Appointments_table.getSelectedRow();
+				Appointment appointment = new Appointment();
+
+				appointment.setId((Integer)Appointments_table.getModel().getValueAt(row,0));
+				appointment.setName((String)Appointments_table.getModel().getValueAt(row,0));
+				appointment.setDescription((String)Appointments_table.getModel().getValueAt(row,0));
+				appointment.setProjectId((Integer)Appointments_table.getModel().getValueAt(row,0));
+
+				DBConn dbConn = new DBConn();
+				dbConn.updateAppointment(appointment);
+			}
+		});
+
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// i = the index of the selected row
+				int i = Appointments_table.getSelectedRow();
+				if(i >= 0){
+					int id = (int)appointmentModel.getValueAt(i, 0);
+					dbConn.deleteEntity(new Project(id));
+					appointmentModel.removeRow(i);
+				}
+				else{
+					System.out.println("Delete Error");
+				}
+				AppointmentpopulateTable(appointmentModel);
+			}
+		});
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(44, 218, 316, 87);
 		dashboardPanel.add(scrollPane_1);
-		
-		table_1 = new JTable();
-		scrollPane_1.setViewportView(table_1);
-		
+
+
+
+		JTable Projects_Table = new JTable();
+		String columnsProject [] ={"Project Id","Project Name","Project Description","End Date","User Id","Category Id"};
+
+		DefaultTableModel projectModel = new DefaultTableModel(new Object[][]{}, columnsProject);
+		projectModel.setColumnIdentifiers(columnsProject);
+		ProjectpopulateTable(projectModel);
+		Projects_Table.setModel(projectModel);
+
+		Projects_Table.setBackground(Color.LIGHT_GRAY);
+		Projects_Table.setForeground(Color.black);
+		Font font1 = new Font("",1,22);
+		Projects_Table.setFont(font1);
+		Projects_Table.setRowHeight(30);
+
+		this.add(Projects_Table);
+		scrollPane_1.setViewportView(Projects_Table);
+
+		// create JTextFields
+
+		JLabel PId = new JLabel("Project Id");
+		JLabel PN = new JLabel("Project Name");
+		JLabel PD = new JLabel("Project Description");
+		JLabel ED = new JLabel("End Date");
+		JLabel UId = new JLabel("User Id");
+		JLabel CId = new JLabel("Category Id");
+
+		PId.setBounds(20, 220, 100, 25);
+		PN.setBounds(20, 250, 100, 25);
+		PD.setBounds(20, 280, 100, 25);
+		ED.setBounds(20, 310, 100, 25);
+		UId.setBounds(20, 340, 100, 25);
+		CId.setBounds(20, 340, 100, 25);
+
+
+
+
+
+
 		JButton btnNewButton_5 = new JButton("UPDATE");
 		btnNewButton_5.setBackground(Color.BLUE);
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int row = Projects_Table.getSelectedRow();
+				Project project = new Project();
+
+				project.setId((Integer)Projects_Table.getModel().getValueAt(row,0));
+				project.setName((String)Projects_Table.getModel().getValueAt(row,0));
+				project.setDescription((String) Projects_Table.getModel().getValueAt(row,0));
+				project.setDate((String) Projects_Table.getModel().getValueAt(row,0));
+				project.setUserId((Integer)Projects_Table.getModel().getValueAt(row,0));
+				project.setCategoryId((Integer)Projects_Table.getModel().getValueAt(row,0));
+
+				DBConn dbConn = new DBConn();
+				dbConn.updateProject(project);
 			}
 		});
 		btnNewButton_5.setBounds(44, 313, 110, 23);
 		dashboardPanel.add(btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("DELETE");
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// i = the index of the selected row
+				int i = Projects_Table.getSelectedRow();
+				if(i >= 0){
+					int id = (int)projectModel.getValueAt(i, 0);
+					dbConn.deleteEntity(new Project(id));
+					projectModel.removeRow(i);
+				}
+				else{
+					System.out.println("Delete Error");
+				}
+				ProjectpopulateTable(projectModel);
+			}
+		});
 		btnNewButton_6.setBackground(Color.RED);
 		btnNewButton_6.setBounds(250, 316, 110, 23);
 		dashboardPanel.add(btnNewButton_6);
@@ -189,9 +324,9 @@ public class Dashboard {
 		appointmentPanel.setLayout(null);
 		layeredPane.add(appointmentPanel, "name_16632775647900");
 
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(88, 110, 189, 20);
-		appointmentPanel.add(spinner);
+		JSpinner ProjectId = new JSpinner();
+		ProjectId.setBounds(88, 110, 189, 20);
+		appointmentPanel.add(ProjectId);
 
 		appointmentName = new JTextField();
 		appointmentName.setColumns(10);
@@ -225,9 +360,11 @@ public class Dashboard {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Appointment appointment = new Appointment(appointmentName.getText(),appointmentDescription.getText());
+
+				Appointment appointment = new Appointment(appointmentName.getText(),appointmentDescription.getText(),(Integer)(ProjectId.getValue()));
 				DBConn dbConn = new DBConn();
-				dbConn.insertIntoAppointments(appointmentName.getText(),appointmentDescription.getText());
+				dbConn.insertIntoAppointments(appointmentName.getText(),appointmentDescription.getText(),(Integer)(ProjectId.getValue()));
+
 
 			}
 		});
@@ -258,13 +395,13 @@ public class Dashboard {
 		lblNewLabel_1.setBounds(88, 99, 186, 14);
 		projectPanel.add(lblNewLabel_1);
 
-		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setBounds(88, 68, 186, 20);
-		projectPanel.add(spinner_1);
+		JSpinner UserId = new JSpinner();
+		UserId.setBounds(88, 68, 186, 20);
+		projectPanel.add(UserId);
 		
-		JSpinner spinner_2 = new JSpinner();
-		spinner_2.setBounds(88, 117, 186, 20);
-		projectPanel.add(spinner_2);
+		JSpinner CategoryId = new JSpinner();
+		CategoryId.setBounds(88, 117, 186, 20);
+		projectPanel.add(CategoryId);
 
 		projectName = new JTextField();
 		projectName.setColumns(10);
@@ -307,9 +444,9 @@ public class Dashboard {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Project project = new Project(projectName.getText(),projectDescription.getText(),Date.getText());
+				Project project = new Project(projectName.getText(),projectDescription.getText(),Date.getText(),(Integer)(UserId.getValue()),(Integer) (CategoryId.getValue()));
 				DBConn dbConn = new DBConn();
-				dbConn.insertIntoProjects(projectName.getText(),projectDescription.getText(),Date.getText());
+				dbConn.insertIntoProjects(projectName.getText(),projectDescription.getText(),Date.getText(),(Integer)(UserId.getValue()),(Integer) (CategoryId.getValue()));
 
 			}
 		});
@@ -330,8 +467,6 @@ public class Dashboard {
 		projectPanel.add(label_6);
 
 
-
-
 		JPanel Menu = new JPanel();
 		Menu.setBounds(0, 0, 133, 361);
 
@@ -339,6 +474,24 @@ public class Dashboard {
 		Menu.setBounds(0, 0, 133, 361);
 		frame.getContentPane().add(Menu);
 		Menu.setLayout(null);
+
+
+		// get selected row data From table to textfields
+		Projects_Table.addMouseListener(new MouseAdapter(){
+
+			@Override
+			public void mouseClicked(MouseEvent e){
+
+				// i = the index of the selected row
+				int i = Projects_Table.getSelectedRow();
+
+				projectName.setText(appointmentModel.getValueAt(i, 0).toString());
+				projectDescription.setText(appointmentModel.getValueAt(i, 1).toString());
+				Date.setText(appointmentModel.getValueAt(i, 2).toString());
+
+			}
+		});
+
 
 		JButton btnNewButton = new JButton("Dashboard");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -375,8 +528,43 @@ public class Dashboard {
 		Menu.add(btnNewButton_2);
 
 	}
+	DBConn dbConn = new DBConn();
 
+	private void ProjectpopulateTable(DefaultTableModel projectModel){
+		for(int i = 0; i < projectModel.getRowCount(); i++){
+			projectModel.removeRow(i);
+		}
+		List<Project> projectList = dbConn.getListingForProject();
+		Object[] rowData = new Object[6];
+		for(int i = 0; i < projectList.size(); i++){
+			rowData[0] = projectList.get(i).getId();
+			rowData[1] = projectList.get(i).getName();
+			rowData[2] = projectList.get(i).getDescription();
+			rowData[3] = projectList.get(i).getDate();
+			rowData[4] = projectList.get(i).getUserId();
+			rowData[5] = projectList.get(i).getCategoryId();
+			projectModel.addRow(rowData);
+		}
+	}
 
+	private void AppointmentpopulateTable(DefaultTableModel appointmentModel){
+		for(int i = 0; i < appointmentModel.getRowCount(); i++){
+			appointmentModel.removeRow(i);
+		}
+		List<Appointment> appointmentList = dbConn.getListingForAppointment();
+		Object[] rowData = new Object[5];
+		for(int i = 0; i < appointmentList.size(); i++){
+			rowData[0] = appointmentList.get(i).getId();
+			rowData[1] = appointmentList.get(i).getName();
+			rowData[2] = appointmentList.get(i).getDescription();
+			rowData[3] = appointmentList.get(i).getProjectId();
+			appointmentModel.addRow(rowData);
+		}
+	}
+
+	private void add(JTable projects_table) {
+
+	}
 
 
 	protected void despose() {
@@ -394,4 +582,5 @@ public class Dashboard {
 		frame.setVisible(b);
 
 	}
+
 }
