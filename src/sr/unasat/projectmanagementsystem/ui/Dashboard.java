@@ -128,6 +128,56 @@ public class Dashboard {
 		dashboardPanel = new JPanel();
 		dashboardPanel.setLayout(null);
 		layeredPane.add(dashboardPanel, "name_16632743230200");
+		
+		JLabel lblNewLabel_3 = new JLabel("Appointments Tablel");
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setBounds(44, 28, 316, 14);
+		dashboardPanel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Project Tabel");
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setBounds(44, 201, 316, 14);
+		dashboardPanel.add(lblNewLabel_4);
+		
+		JButton btnNewButton_3 = new JButton("UPDATE");
+		btnNewButton_3.setBackground(Color.BLUE);
+		btnNewButton_3.setForeground(Color.BLACK);
+		btnNewButton_3.setBounds(44, 143, 110, 23);
+		dashboardPanel.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("DELETE");
+		btnNewButton_4.setBackground(Color.RED);
+		btnNewButton_4.setBounds(250, 143, 110, 23);
+		dashboardPanel.add(btnNewButton_4);
+
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(43, 45, 318, 87);
+		dashboardPanel.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(44, 218, 316, 87);
+		dashboardPanel.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		
+		JButton btnNewButton_5 = new JButton("UPDATE");
+		btnNewButton_5.setBackground(Color.BLUE);
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton_5.setBounds(44, 313, 110, 23);
+		dashboardPanel.add(btnNewButton_5);
+		
+		JButton btnNewButton_6 = new JButton("DELETE");
+		btnNewButton_6.setBackground(Color.RED);
+		btnNewButton_6.setBounds(250, 316, 110, 23);
+		dashboardPanel.add(btnNewButton_6);
 
 		JLabel label_7 = new JLabel("New label");
 		label_7.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
@@ -139,10 +189,9 @@ public class Dashboard {
 		appointmentPanel.setLayout(null);
 		layeredPane.add(appointmentPanel, "name_16632775647900");
 
-		projectId = new JTextField();
-		projectId.setBounds(88, 110, 189, 20);
-		appointmentPanel.add(projectId);
-		projectId.setColumns(10);
+		JSpinner spinner = new JSpinner();
+		spinner.setBounds(88, 110, 189, 20);
+		appointmentPanel.add(spinner);
 
 		appointmentName = new JTextField();
 		appointmentName.setColumns(10);
@@ -209,15 +258,13 @@ public class Dashboard {
 		lblNewLabel_1.setBounds(88, 99, 186, 14);
 		projectPanel.add(lblNewLabel_1);
 
-		userId = new JTextField();
-		userId.setBounds(88, 68, 186, 20);
-		projectPanel.add(userId);
-		userId.setColumns(10);
-
-		categoryId = new JTextField();
-		categoryId.setBounds(88, 117, 186, 20);
-		projectPanel.add(categoryId);
-		categoryId.setColumns(10);
+		JSpinner spinner_1 = new JSpinner();
+		spinner_1.setBounds(88, 68, 186, 20);
+		projectPanel.add(spinner_1);
+		
+		JSpinner spinner_2 = new JSpinner();
+		spinner_2.setBounds(88, 117, 186, 20);
+		projectPanel.add(spinner_2);
 
 		projectName = new JTextField();
 		projectName.setColumns(10);
