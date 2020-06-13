@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.List;
 
 import java.time.Period;
@@ -288,7 +289,11 @@ public class Dashboard {
 				project.setCategoryId((Integer)Projects_Table.getModel().getValueAt(row,5));
 
 				DBConn dbConn = new DBConn();
-				dbConn.updateProject(project);
+				try {
+					dbConn.updateProject(project);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		btnNewButton_5.setBounds(44, 313, 110, 23);

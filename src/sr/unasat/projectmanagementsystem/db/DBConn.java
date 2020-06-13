@@ -68,20 +68,20 @@ public class DBConn {
                 }
             }
 
-    public void updateProject(Project project){
+    public void updateProject(Project project) throws SQLException {
         String sql = "UPDATE projects SET Proj_name = ?, Proj_description = ?, End_date = ?," +
-                "User_id = ? " + "Cat_id = ?"+
-                "WHERE Proj_id = ?";
-
+                "User_id = ?, " + "Cat_id = ?"+
+                " WHERE Proj_id = ?";
         try {
-
+             myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                    "root", "biga3000");
             PreparedStatement statement = myConn.prepareStatement(sql);
             statement.setString(1, project.getName());
             statement.setString(2, project.getDescription());
             statement.setString(3, project.getDate());
             statement.setInt(4, project.getUserId());
             statement.setInt(5, project.getCategoryId());
-            statement.setInt(5, project.getId());
+            statement.setInt(6, project.getId());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
