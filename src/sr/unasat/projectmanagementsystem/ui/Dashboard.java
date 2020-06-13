@@ -154,7 +154,7 @@ public class Dashboard {
 
 		DefaultTableModel appointmentModel = new DefaultTableModel(new Object[][]{}, columnsAppointment);
 		appointmentModel.setColumnIdentifiers(columnsAppointment);
-		ProjectpopulateTable(appointmentModel);
+		AppointmentpopulateTable(appointmentModel);
 		Appointments_table.setModel(appointmentModel);
 
 		Appointments_table.setBackground(Color.LIGHT_GRAY);
@@ -203,10 +203,10 @@ public class Dashboard {
 				int row = Appointments_table.getSelectedRow();
 				Appointment appointment = new Appointment();
 
-				appointment.setId((Integer)Appointments_table.getModel().getValueAt(row,0));
-				appointment.setName((String)Appointments_table.getModel().getValueAt(row,0));
-				appointment.setDescription((String)Appointments_table.getModel().getValueAt(row,0));
-				appointment.setProjectId((Integer)Appointments_table.getModel().getValueAt(row,0));
+				appointment.setId(Integer.parseInt(Appointments_table.getModel().getValueAt(row,0).toString()));
+				appointment.setName(String.valueOf(Appointments_table.getModel().getValueAt(row,1).toString()));
+				appointment.setDescription((String)Appointments_table.getModel().getValueAt(row,2));
+				appointment.setProjectId(Integer.parseInt(Appointments_table.getModel().getValueAt(row,3).toString()));
 
 				DBConn dbConn = new DBConn();
 				dbConn.updateAppointment(appointment);
@@ -219,7 +219,7 @@ public class Dashboard {
 				int i = Appointments_table.getSelectedRow();
 				if(i >= 0){
 					int id = (int)appointmentModel.getValueAt(i, 0);
-					dbConn.deleteEntity(new Project(id));
+					dbConn.deleteAppointment(new Appointment(id));
 					appointmentModel.removeRow(i);
 				}
 				else{
@@ -281,11 +281,11 @@ public class Dashboard {
 				Project project = new Project();
 
 				project.setId((Integer)Projects_Table.getModel().getValueAt(row,0));
-				project.setName((String)Projects_Table.getModel().getValueAt(row,0));
-				project.setDescription((String) Projects_Table.getModel().getValueAt(row,0));
-				project.setDate((String) Projects_Table.getModel().getValueAt(row,0));
-				project.setUserId((Integer)Projects_Table.getModel().getValueAt(row,0));
-				project.setCategoryId((Integer)Projects_Table.getModel().getValueAt(row,0));
+				project.setName((String)Projects_Table.getModel().getValueAt(row,1));
+				project.setDescription((String) Projects_Table.getModel().getValueAt(row,2));
+				project.setDate((String) Projects_Table.getModel().getValueAt(row,3));
+				project.setUserId((Integer)Projects_Table.getModel().getValueAt(row,4));
+				project.setCategoryId((Integer)Projects_Table.getModel().getValueAt(row,5));
 
 				DBConn dbConn = new DBConn();
 				dbConn.updateProject(project);
@@ -301,13 +301,13 @@ public class Dashboard {
 				int i = Projects_Table.getSelectedRow();
 				if(i >= 0){
 					int id = (int)projectModel.getValueAt(i, 0);
-					dbConn.deleteEntity(new Project(id));
+					dbConn.deleteProject(new Project(id));
 					projectModel.removeRow(i);
 				}
 				else{
 					System.out.println("Delete Error");
 				}
-				ProjectpopulateTable(projectModel);
+				AppointmentpopulateTable(projectModel);
 			}
 		});
 		btnNewButton_6.setBackground(Color.RED);

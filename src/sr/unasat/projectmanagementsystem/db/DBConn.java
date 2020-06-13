@@ -70,7 +70,7 @@ public class DBConn {
     public void updateProject(Project project){
         String sql = "UPDATE projects SET Proj_name = ?, Proj_description = ?, End_date = ?," +
                 "User_id = ? " + "Cat_id = ?"+
-                "WHERE Id = ?";
+                "WHERE Proj_id = ?";
 
         try {
 
@@ -112,18 +112,18 @@ public class DBConn {
     }
 
     public void updateAppointment(Appointment appointment){
-        String sql = "UPDATE appointments SET App_name = ?, App_description = ?, Proj_id = ? WHERE Id = ?";
+        String sql = "UPDATE appointments SET App_name = ?, App_description = ?, Proj_id = ? WHERE App_id = ?";
 
         try {
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+                    "root", "biga3000");
             PreparedStatement statement = myConn.prepareStatement(sql);
             statement.setString(1, appointment.getName());
             statement.setString(2, appointment.getDescription());
             statement.setInt(3, appointment.getProjectId());
             statement.setInt(4, appointment.getId());
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("An Appointment was updated successfully!");
-            }
+            statement.executeUpdate();
+            System.out.println("Appointment Updated");
         }catch (SQLException ex){
             ex.printStackTrace();
         }
@@ -159,34 +159,32 @@ public class DBConn {
 
 
     public void deleteAppointment(Appointment appointment){
-        String sql = "DELETE FROM appointments WHERE Id = ?";
+        String sql = "DELETE FROM appointments WHERE App_id = ?";
 
         try {
-            if(myConn.isClosed())
-                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?autoReconnect=true&useSSL=false");
+
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true","root","biga3000");
             PreparedStatement statement = myConn.prepareStatement(sql);
             statement.setInt(1, appointment.getId());
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A appointment was deleted successfully!");
-            }
+            statement.executeUpdate();
+            System.out.println("Project"+appointment.getName()+"Is Deleted");
+
+
         }catch (SQLException ex){
             ex.printStackTrace();
         }
     }
 
     public void deleteProject(Project project){
-        String sql = "DELETE FROM projects WHERE Id = ?";
+        String sql = "DELETE FROM projects WHERE Proj_id = ?";
 
         try {
-            if(myConn.isClosed())
-                myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?autoReconnect=true&useSSL=false");
+            Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true","root","biga3000");
             PreparedStatement statement = myConn.prepareStatement(sql);
             statement.setInt(1, project.getId());
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A project was deleted successfully!");
-            }
+            statement.executeUpdate();
+            System.out.println("Project"+project.getName()+"Is Deleted");
+
         }catch (SQLException ex){
             ex.printStackTrace();
         }
