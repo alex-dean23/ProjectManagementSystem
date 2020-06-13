@@ -209,7 +209,7 @@ public class Dashboard {
 				appointment.setProjectId(Integer.parseInt(Appointments_table.getModel().getValueAt(row,3).toString()));
 
 				DBConn dbConn = new DBConn();
-				dbConn.updateAppointment(appointment);
+				dbConn.updateAppointment(appointment, Appointments_table);
 			}
 		});
 

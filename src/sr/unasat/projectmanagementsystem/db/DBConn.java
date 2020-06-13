@@ -7,6 +7,7 @@ import sr.unasat.projectmanagementsystem.ui.Dashboard;
 import sr.unasat.projectmanagementsystem.ui.Login;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
@@ -111,18 +112,44 @@ public class DBConn {
         }
     }
 
-    public void updateAppointment(Appointment appointment){
-        String sql = "UPDATE appointments SET App_name = ?, App_description = ?, Proj_id = ? WHERE App_id = ?";
+    public void updateAppointment(Appointment appointment, JTable jTable){
+
 
         try {
+
+            DefaultTableModel model = (DefaultTableModel)jTable.getModel();
+
+            int selectedRowIndex = jTable.getSelectedRow();
+            int id = Integer.parseInt(model.getValueAt(selectedRowIndex,0).toString());
+            String name = model.getValueAt(selectedRowIndex,1).toString();
+            String description = model.getValueAt(selectedRowIndex,2).toString();
+
+            String sq = "UPDATE appointments SET App_id = '"+id+"' WHERE App_id = "+id+"";
+            String sql = "UPDATE appointments SET App_name = '"+name+"' WHERE App_id = "+id+"";
+            String sql1 = "UPDATE appointments SET App_description = '"+description+"' WHERE App_id = "+id+"";
+
+
             Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
                     "root", "biga3000");
+            String newId = JOptionPane.showInputDialog(null,"Enter new ID:",id);
+            model.setValueAt(newId,selectedRowIndex,0);
+            PreparedStatement statemen = myConn.prepareStatement(sq);
+            //statement.setInt(1, appointment.getId());
+            statemen.executeUpdate(sq);
+
+            String newName = JOptionPane.showInputDialog(null,"Enter new Name:",name);
+            model.setValueAt(name,selectedRowIndex,1);
             PreparedStatement statement = myConn.prepareStatement(sql);
-            statement.setString(1, appointment.getName());
-            statement.setString(2, appointment.getDescription());
-            statement.setInt(3, appointment.getProjectId());
-            statement.setInt(4, appointment.getId());
-            statement.executeUpdate();
+            //statement.setInt(1, appointment.getId());
+            statement.executeUpdate(sql);
+
+            String newDescription = JOptionPane.showInputDialog(null,"Enter new Description:",description);
+            model.setValueAt(description,selectedRowIndex,2);
+            PreparedStatement statement1 = myConn.prepareStatement(sql1);
+            //statement1.setInt(1, appointment.getId());
+            statement1.executeUpdate(sql1);
+
+
             System.out.println("Appointment Updated");
         }catch (SQLException ex){
             ex.printStackTrace();
