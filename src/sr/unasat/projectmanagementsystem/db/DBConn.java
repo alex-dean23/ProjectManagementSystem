@@ -156,35 +156,6 @@ public class DBConn {
         }
     }
 
-
-    public void deleteEntity(Object obj){
-        String sql = String.format("DELETE FROM %s WHERE Id = ?", getClassName(obj.getClass()));
-
-        try {
-            if(myConn.isClosed())
-                 myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
-                        "root", "biga3000");
-            PreparedStatement statement = myConn.prepareStatement(sql);
-            Method m = obj.getClass().getMethod("getId");
-            Integer id = (Integer) m.invoke(obj);
-            statement.setInt(1, id);
-
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A " + obj.getClass().getName() + " was deleted successfully!");
-            }
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void deleteAppointment(Appointment appointment){
         String sql = "DELETE FROM appointments WHERE App_id = ?";
 
@@ -194,7 +165,7 @@ public class DBConn {
             PreparedStatement statement = myConn.prepareStatement(sql);
             statement.setInt(1, appointment.getId());
             statement.executeUpdate();
-            System.out.println("Project"+appointment.getName()+"Is Deleted");
+            System.out.println("Appointment "+appointment.getName()+"Is Deleted");
 
 
         }catch (SQLException ex){
@@ -210,7 +181,7 @@ public class DBConn {
             PreparedStatement statement = myConn.prepareStatement(sql);
             statement.setInt(1, project.getId());
             statement.executeUpdate();
-            System.out.println("Project"+project.getName()+"Is Deleted");
+            System.out.println("Project "+project.getName()+"Is Deleted");
 
         }catch (SQLException ex){
             ex.printStackTrace();
