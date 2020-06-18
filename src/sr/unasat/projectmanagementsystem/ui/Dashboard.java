@@ -199,20 +199,7 @@ public class Dashboard {
 
 
 
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int row = Appointments_table.getSelectedRow();
-				Appointment appointment = new Appointment();
 
-				appointment.setId(Integer.parseInt(Appointments_table.getModel().getValueAt(row,0).toString()));
-				appointment.setName(String.valueOf(Appointments_table.getModel().getValueAt(row,1).toString()));
-				appointment.setDescription((String)Appointments_table.getModel().getValueAt(row,2));
-				appointment.setProjectId(Integer.parseInt(Appointments_table.getModel().getValueAt(row,3).toString()));
-
-				DBConn dbConn = new DBConn();
-				dbConn.updateAppointment(appointment, Appointments_table);
-			}
-		});
 
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -273,26 +260,6 @@ public class Dashboard {
 
 		JButton btnNewButton_5 = new JButton("UPDATE");
 		btnNewButton_5.setBackground(Color.BLUE);
-		btnNewButton_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int row = Projects_Table.getSelectedRow();
-				Project project = new Project();
-
-				project.setId((Integer)Projects_Table.getModel().getValueAt(row,0));
-				project.setName((String)Projects_Table.getModel().getValueAt(row,1));
-				project.setDescription((String) Projects_Table.getModel().getValueAt(row,2));
-				project.setDate((String) Projects_Table.getModel().getValueAt(row,3));
-				project.setUserId((Integer)Projects_Table.getModel().getValueAt(row,4));
-				project.setCategoryId((Integer)Projects_Table.getModel().getValueAt(row,5));
-
-				DBConn dbConn = new DBConn();
-				try {
-					dbConn.updateProject(project);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		});
 		btnNewButton_5.setBounds(44, 313, 110, 23);
 		dashboardPanel.add(btnNewButton_5);
 		
@@ -336,6 +303,15 @@ public class Dashboard {
 		proj_idTf.setBounds(459, 121, 86, 20);
 		dashboardPanel.add(proj_idTf);
 		proj_idTf.setColumns(10);
+
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int row = Appointments_table.getSelectedRow();
+
+				DBConn dbConn = new DBConn();
+				dbConn.updateAppointment(Integer.parseInt(app_idTf.getText()),app_nameTf.getText(),app_descTf.getText(),Integer.parseInt(proj_idTf.getText()));
+			}
+		});
 	
 //Update App labels
 		
@@ -390,6 +366,17 @@ public class Dashboard {
 		catagory_idTf.setBounds(459, 339, 86, 20);
 		dashboardPanel.add(catagory_idTf);
 		catagory_idTf.setColumns(10);
+
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int row = Projects_Table.getSelectedRow();
+
+
+				DBConn dbConn = new DBConn();
+				dbConn.updateProject(Integer.parseInt(proj_idTf.getText()), Proj_nameTf.getText(), proj_descrTf.getText(), end_dateTf.getText(), Integer.parseInt(user_idTf.getText()), Integer.parseInt(catagory_idTf.getText()));
+
+			}
+		});
 		
 //Update proj labels
 		JLabel proj_idLb = new JLabel("Project Id");

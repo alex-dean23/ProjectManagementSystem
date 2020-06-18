@@ -68,20 +68,12 @@ public class DBConn {
                 }
             }
 
-    public void updateProject(Project project) throws SQLException {
-        String sql = "UPDATE projects SET Proj_name = ?, Proj_description = ?, End_date = ?," +
-                "User_id = ?, " + "Cat_id = ?"+
-                " WHERE Proj_id = ?";
+    public void updateProject(int id, String name, String description, String endDate, int userId, int catId)  {
+        String sql = "UPDATE projects SET Proj_name = '"+name+"', Proj_description = '"+description+"', End_date = '"+endDate+"',User_id = "+userId+", Cat_id = "+catId+" WHERE Proj_id = "+id;
         try {
              myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
                     "root", "biga3000");
             PreparedStatement statement = myConn.prepareStatement(sql);
-            statement.setString(1, project.getName());
-            statement.setString(2, project.getDescription());
-            statement.setString(3, project.getDate());
-            statement.setInt(4, project.getUserId());
-            statement.setInt(5, project.getCategoryId());
-            statement.setInt(6, project.getId());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -112,45 +104,17 @@ public class DBConn {
         }
     }
 
-    public void updateAppointment(Appointment appointment, JTable jTable){
-
-
+    public void updateAppointment(int id, String name, String description, int projId){
+        String sql = "UPDATE appointments SET App_name = '"+name+"', App_description = '"+description+"', Proj_id = "+projId+" WHERE App_id = "+id;
         try {
-
-            DefaultTableModel model = (DefaultTableModel)jTable.getModel();
-
-            int selectedRowIndex = jTable.getSelectedRow();
-            int id = Integer.parseInt(model.getValueAt(selectedRowIndex,0).toString());
-            String name = model.getValueAt(selectedRowIndex,1).toString();
-            String description = model.getValueAt(selectedRowIndex,2).toString();
-
-            String sq = "UPDATE appointments SET App_id = '"+id+"' WHERE App_id = "+id+"";
-            String sql = "UPDATE appointments SET App_name = '"+name+"' WHERE App_id = "+id+"";
-            String sql1 = "UPDATE appointments SET App_description = '"+description+"' WHERE App_id = "+id+"";
-
-
-            Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
+            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
                     "root", "biga3000");
-            String newId = JOptionPane.showInputDialog(null,"Enter new ID:",id);
-            model.setValueAt(newId,selectedRowIndex,0);
-            PreparedStatement statemen = myConn.prepareStatement(sq);
-            //statement.setInt(1, appointment.getId());
-            statemen.executeUpdate(sq);
-
-            String newName = JOptionPane.showInputDialog(null,"Enter new Name:",name);
-            model.setValueAt(name,selectedRowIndex,1);
             PreparedStatement statement = myConn.prepareStatement(sql);
-            //statement.setInt(1, appointment.getId());
-            statement.executeUpdate(sql);
 
-            String newDescription = JOptionPane.showInputDialog(null,"Enter new Description:",description);
-            model.setValueAt(description,selectedRowIndex,2);
-            PreparedStatement statement1 = myConn.prepareStatement(sql1);
-            //statement1.setInt(1, appointment.getId());
-            statement1.executeUpdate(sql1);
-
-
-            System.out.println("Appointment Updated");
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("A project was updated successfully!");
+            }
         }catch (SQLException ex){
             ex.printStackTrace();
         }
