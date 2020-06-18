@@ -425,7 +425,7 @@ public class Dashboard {
 		
 
 		JLabel lblAppName = new JLabel("App Name");
-		lblAppName.setIcon(new ImageIcon(Dashboard.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
+		lblAppName.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
 		lblAppName.setBounds(0, 0, 555, 361);
 		dashboardPanel.add(lblAppName);		
 		
