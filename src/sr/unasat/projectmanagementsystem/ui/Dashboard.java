@@ -100,20 +100,20 @@ public class Dashboard {
 		Object []row = new Object[5];
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 550, 400);
+		frame.setBounds(100, 100, 704, 400);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 
 		//Panel
 		JPanel cardPanel = new JPanel();
-		cardPanel.setBounds(133, 0, 401, 361);
+		cardPanel.setBounds(133, 0, 555, 361);
 		frame.getContentPane().add(cardPanel);
 		cardPanel.setLayout(null);
 
 		//Layerd
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 0, 401, 361);
+		layeredPane.setBounds(0, 0, 555, 361);
 		cardPanel.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 
@@ -271,9 +271,6 @@ public class Dashboard {
 
 
 
-
-
-
 		JButton btnNewButton_5 = new JButton("UPDATE");
 		btnNewButton_5.setBackground(Color.BLUE);
 		btnNewButton_5.addActionListener(new ActionListener() {
@@ -318,11 +315,121 @@ public class Dashboard {
 		btnNewButton_6.setBackground(Color.RED);
 		btnNewButton_6.setBounds(250, 316, 110, 23);
 		dashboardPanel.add(btnNewButton_6);
+		
+//update App
+		app_idTf = new JTextField();
+		app_idTf.setBounds(459, 28, 86, 20);
+		dashboardPanel.add(app_idTf);
+		app_idTf.setColumns(10);
+		
+		app_nameTf = new JTextField();
+		app_nameTf.setBounds(459, 59, 86, 20);
+		dashboardPanel.add(app_nameTf);
+		app_nameTf.setColumns(10);
+		
+		app_descTf = new JTextField();
+		app_descTf.setBounds(459, 90, 86, 20);
+		dashboardPanel.add(app_descTf);
+		app_descTf.setColumns(10);
+		
+		proj_idTf = new JTextField();
+		proj_idTf.setBounds(459, 121, 86, 20);
+		dashboardPanel.add(proj_idTf);
+		proj_idTf.setColumns(10);
+	
+//Update App labels
+		
+		JLabel lblNewLabel_5 = new JLabel("App Id");
+		lblNewLabel_5.setForeground(Color.WHITE);
+		lblNewLabel_5.setBounds(390, 28, 46, 14);
+		dashboardPanel.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("New label");
+		lblNewLabel_6.setForeground(Color.WHITE);
+		lblNewLabel_6.setBounds(390, 62, 46, 14);
+		dashboardPanel.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("App Description");
+		lblNewLabel_7.setForeground(Color.WHITE);
+		lblNewLabel_7.setBounds(390, 93, 46, 14);
+		dashboardPanel.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("Proj Id");
+		lblNewLabel_8.setForeground(Color.WHITE);
+		lblNewLabel_8.setBounds(390, 124, 46, 14);
+		dashboardPanel.add(lblNewLabel_8);
+		
+		
+//textUpd Proj textf
+		
+		Proj_idTf = new JTextField();
+		Proj_idTf.setBounds(459, 183, 86, 20);
+		dashboardPanel.add(Proj_idTf);
+		Proj_idTf.setColumns(10);
+		
+		Proj_nameTf = new JTextField();
+		Proj_nameTf.setBounds(459, 218, 86, 20);
+		dashboardPanel.add(Proj_nameTf);
+		Proj_nameTf.setColumns(10);
+		
+		proj_descrTf = new JTextField();
+		proj_descrTf.setBounds(459, 249, 86, 20);
+		dashboardPanel.add(proj_descrTf);
+		proj_descrTf.setColumns(10);
+		
+		JFormattedTextField end_dateTf = new JFormattedTextField();
+		end_dateTf.setBounds(459, 280, 86, 20);
+		dashboardPanel.add(end_dateTf);
+		
+		user_idTf = new JTextField();
+		user_idTf.setBounds(459, 308, 86, 20);
+		dashboardPanel.add(user_idTf);
+		user_idTf.setColumns(10);
+		
+		catagory_idTf = new JTextField();
+		catagory_idTf.setBounds(459, 339, 86, 20);
+		dashboardPanel.add(catagory_idTf);
+		catagory_idTf.setColumns(10);
+		
+//Update proj labels
+		JLabel proj_idLb = new JLabel("Project Id");
+		proj_idLb.setForeground(Color.WHITE);
+		proj_idLb.setBounds(390, 189, 59, 14);
+		dashboardPanel.add(proj_idLb);
+		
+		JLabel lblNewLabel_10 = new JLabel("Project Name");
+		lblNewLabel_10.setForeground(Color.WHITE);
+		lblNewLabel_10.setBounds(390, 218, 59, 14);
+		dashboardPanel.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_11 = new JLabel("Project Description");
+		lblNewLabel_11.setForeground(Color.WHITE);
+		lblNewLabel_11.setBounds(390, 252, 59, 14);
+		dashboardPanel.add(lblNewLabel_11);
+		
+		JLabel lblNewLabel_12 = new JLabel("End /date");
+		lblNewLabel_12.setForeground(Color.WHITE);
+		lblNewLabel_12.setBounds(390, 283, 69, 14);
+		dashboardPanel.add(lblNewLabel_12);
+		
+		JLabel lblNewLabel_13 = new JLabel("user Id");
+		lblNewLabel_13.setForeground(Color.WHITE);
+		lblNewLabel_13.setBounds(390, 311, 59, 14);
+		dashboardPanel.add(lblNewLabel_13);
+		
+		JLabel lblNewLabel_14 = new JLabel("Category Id");
+		lblNewLabel_14.setForeground(Color.WHITE);
+		lblNewLabel_14.setBounds(390, 336, 46, 14);
+		dashboardPanel.add(lblNewLabel_14);
+		
+		
 
-		JLabel label_7 = new JLabel("New label");
-		label_7.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
-		label_7.setBounds(0, 0, 402, 361);
-		dashboardPanel.add(label_7);
+		JLabel lblAppName = new JLabel("App Name");
+		lblAppName.setIcon(new ImageIcon(Dashboard.class.getResource("/ui/images/pexels-photo-1629212.jpeg")));
+		lblAppName.setBounds(0, 0, 555, 361);
+		dashboardPanel.add(lblAppName);		
+		
+		
 
 		//appoitm
 		appointmentPanel = new JPanel();
@@ -384,7 +491,7 @@ public class Dashboard {
 
 		JLabel label_2 = new JLabel("New label");
 		label_2.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
-		label_2.setBounds(0, 0, 402, 361);
+		label_2.setBounds(0, 0, 555, 361);
 		appointmentPanel.add(label_2);
 
 
@@ -468,7 +575,7 @@ public class Dashboard {
 
 		JLabel label_6 = new JLabel("New label");
 		label_6.setIcon(new ImageIcon(Dashboard.class.getResource("/sr/unasat/projectmanagementsystem/ui/images/pexels-photo-1629212.jpeg")));
-		label_6.setBounds(0, 0, 402, 361);
+		label_6.setBounds(0, 0, 555, 361);
 		projectPanel.add(label_6);
 
 
@@ -534,6 +641,15 @@ public class Dashboard {
 
 	}
 	DBConn dbConn = new DBConn();
+	private JTextField app_idTf;
+	private JTextField app_nameTf;
+	private JTextField app_descTf;
+	private JTextField proj_idTf;
+	private JTextField Proj_idTf;
+	private JTextField Proj_nameTf;
+	private JTextField proj_descrTf;
+	private JTextField user_idTf;
+	private JTextField catagory_idTf;
 
 	private void ProjectpopulateTable(DefaultTableModel projectModel){
 		for(int i = 0; i < projectModel.getRowCount(); i++){
@@ -587,5 +703,4 @@ public class Dashboard {
 		frame.setVisible(b);
 
 	}
-
 }
