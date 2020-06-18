@@ -353,9 +353,10 @@ public class Dashboard {
 		dashboardPanel.add(proj_descrTf);
 		proj_descrTf.setColumns(10);
 		
-		JFormattedTextField end_dateTf = new JFormattedTextField();
+		end_dateTf = new JTextField();
 		end_dateTf.setBounds(459, 280, 86, 20);
 		dashboardPanel.add(end_dateTf);
+		end_dateTf.setColumns(10);
 		
 		user_idTf = new JTextField();
 		user_idTf.setBounds(459, 308, 86, 20);
