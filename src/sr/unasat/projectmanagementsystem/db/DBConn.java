@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.*;
 
 public class DBConn {
 
@@ -69,11 +70,17 @@ public class DBConn {
             }
 
     public void updateProject(int id, String name, String description, String endDate, int userId, int catId)  {
-        String sql = "UPDATE projects SET Proj_name = '"+name+"', Proj_description = '"+description+"', End_date = '"+endDate+"',User_id = "+userId+", Cat_id = "+catId+" WHERE Proj_id = "+id;
+        String sql = "UPDATE projects SET Proj_name = ?, Proj_description = ?, End_date = ?,User_id = ?, Cat_id = ? WHERE Proj_id = ?";
         try {
              myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pm_system_db?verifyServerCertificate=false&useSSL=true",
                     "root", "biga3000");
             PreparedStatement statement = myConn.prepareStatement(sql);
+            statement.setString(1,name);
+            statement.setString(2,description);
+            statement.setString(3,endDate);
+            statement.setInt(4,userId);
+            statement.setInt(5,catId);
+            statement.setInt(6,id);
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -81,6 +88,9 @@ public class DBConn {
             }
         }catch (SQLException ex){
             ex.printStackTrace();
+        }
+        catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
         }
     }
 

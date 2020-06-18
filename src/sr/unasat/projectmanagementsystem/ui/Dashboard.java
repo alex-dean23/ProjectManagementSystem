@@ -352,8 +352,8 @@ public class Dashboard {
 		proj_descrTf.setBounds(459, 249, 86, 20);
 		dashboardPanel.add(proj_descrTf);
 		proj_descrTf.setColumns(10);
-		
-		end_dateTf = new JTextField();
+
+		JTextField end_dateTf = new JTextField();
 		end_dateTf.setBounds(459, 280, 86, 20);
 		dashboardPanel.add(end_dateTf);
 		end_dateTf.setColumns(10);
@@ -371,7 +371,6 @@ public class Dashboard {
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int row = Projects_Table.getSelectedRow();
-
 
 				DBConn dbConn = new DBConn();
 				dbConn.updateProject(Integer.parseInt(proj_idTf.getText()), Proj_nameTf.getText(), proj_descrTf.getText(), end_dateTf.getText(), Integer.parseInt(user_idTf.getText()), Integer.parseInt(catagory_idTf.getText()));
